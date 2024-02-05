@@ -78,6 +78,26 @@ def mplight(signals):
             obs.append(queue_length)
         observations[signal_id] = np.asarray(obs)
     return observations
+    
+def mplightCO2(signals):
+    observations = dict()
+    for signal_id in signals:
+        signal = signals[signal_id]
+        obs = [signal.phase]
+        for direction in signal.lane_sets:
+            # Add inbound
+            total_co2 = 0
+            for lane in signal.lane_sets[direction]:
+                total_co2 += signal.full_observation[lane]['total_co2']
+
+            # Subtract downstream
+            for lane in signal.lane_sets_outbound[direction]:
+                dwn_signal = signal.out_lane_to_signalid[lane]
+                if dwn_signal in signal.signals:
+                    total_co2 -= signal.signals[dwn_signal].full_observation[lane]['total_co2']
+            obs.append(total_co2)
+        observations[signal_id] = np.asarray(obs)
+    return observations
 
 
 def mplight_full(signals):

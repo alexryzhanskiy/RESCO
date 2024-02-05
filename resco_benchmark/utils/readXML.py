@@ -13,7 +13,8 @@ log_dir = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'results' 
 env_base = '..'+os.sep+'environments'+os.sep
 names = [folder for folder in next(os.walk(log_dir))[1]]
 
-metrics = ['timeLoss', 'duration', 'waitingTime']
+# metrics = ['timeLoss', 'duration', 'waitingTime']
+metrics = ['duration', 'waitingTime', 'CO2_abs']
 
 for metric in metrics:
     output_file = 'avg_{}.py'.format(metric)
@@ -24,7 +25,7 @@ for metric in metrics:
         print(split_name)
         map_name = split_name[2]
         average_per_episode = []
-        for i in range(1, 10000):
+        for i in range(1, 102): # default (1, 10000)
             trip_file_name = log_dir+name + os.sep + 'tripinfo_'+str(i)+'.xml'
             if not os.path.exists(trip_file_name):
                 print('No '+trip_file_name)
@@ -38,7 +39,13 @@ for metric in metrics:
                 for child in root:
                     try:
                         num_trips += 1
-                        total += float(child.attrib[metric])
+                        
+                        if metric == 'CO2_abs':
+                            for emission in child:
+                                total += float(emission.attrib[metric])
+                        else:
+                            total += float(child.attrib[metric])
+                            
                         if metric == 'timeLoss':
                             total += float(child.attrib['departDelay'])
                             depart_time = float(child.attrib['depart'])
@@ -72,14 +79,28 @@ for metric in metrics:
                     never_departed_delay = np.sum(float(map_configs[map_name]['end_time']) - never_departed)
                     total += never_departed_delay
                     num_trips += len(never_departed)
-
+                    
                 average = total / num_trips
                 average_per_episode.append(average)
             except ET.ParseError as e:
                 #raise e
                 break
-
-        run_name = split_name[0]+' '+split_name[2]+' '+split_name[3]+' '+split_name[4]+' '+split_name[5]
+           
+        metricName = '';
+        if metric == 'duration':
+            metricName = 'Duration'
+        elif metric == 'waitingTime':
+            metricName = 'Waiting Time'
+        elif metricName == 'CO2_abs':
+            metricName = 'CO2'
+        else:
+            metricName = 'Not defined'
+            
+        agentName = split_name[0]
+        if 'CO2' in split_name[4]:
+            agentName += 'CO2'
+            
+        run_name = 'Agent: '+agentName+' | Map: '+split_name[2]+' | Metric: '+metricName
         average_per_episode = np.asarray(average_per_episode)
 
         if run_name in run_avg:
@@ -95,6 +116,7 @@ for metric in metrics:
         min_len = min([len(run) for run in list_runs])
         list_runs = [run[:min_len] for run in list_runs]
         avg_delays = np.sum(list_runs, 0)/len(list_runs)
+        # print('avg_delays = ' + ' '.join(str(e) for e in avg_delays))
         err = np.std(list_runs, axis=0)
 
         alg_name.append(run_name)

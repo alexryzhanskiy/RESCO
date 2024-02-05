@@ -191,7 +191,7 @@ class Signal:
         all_vehicles = set()
         for lane in self.lanes:
             vehicles = []
-            lane_measures = {'queue': 0, 'approach': 0, 'total_wait': 0, 'max_wait': 0}
+            lane_measures = {'queue': 0, 'approach': 0, 'total_wait': 0, 'max_wait': 0, 'total_co2': 0}
             lane_vehicles = self.get_vehicles(lane, distance)
             for vehicle in lane_vehicles:
                 all_vehicles.add(vehicle)
@@ -208,7 +208,10 @@ class Signal:
                 vehicle_measures['acceleration'] = self.sumo.vehicle.getAcceleration(vehicle)
                 vehicle_measures['position'] = self.sumo.vehicle.getLanePosition(vehicle)
                 vehicle_measures['type'] = self.sumo.vehicle.getTypeID(vehicle)
+                vehicle_measures['co2'] = self.sumo.vehicle.getCO2Emission(vehicle)
                 vehicles.append(vehicle_measures)
+                if vehicle_measures['co2'] > 0:
+                    lane_measures['total_co2'] = lane_measures['total_co2'] + vehicle_measures['co2']
                 if vehicle_measures['wait'] > 0:
                     lane_measures['total_wait'] = lane_measures['total_wait'] + vehicle_measures['wait']
                     lane_measures['queue'] = lane_measures['queue'] + 1
@@ -217,6 +220,7 @@ class Signal:
                 else:
                     lane_measures['approach'] = lane_measures['approach'] + 1
             lane_measures['vehicles'] = vehicles
+            lane_measures['total_co2'] = round(lane_measures['total_co2'], 1)
             full_observation[lane] = lane_measures
 
         full_observation['num_vehicles'] = all_vehicles

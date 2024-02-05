@@ -13,7 +13,7 @@ from resco_benchmark.config.mdp_config import mdp_configs
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--agent", type=str, default='STOCHASTIC',
-                    choices=['STOCHASTIC', 'MAXWAVE', 'MAXPRESSURE', 'IDQN', 'IPPO', 'MPLight', 'MA2C', 'FMA2C',
+                    choices=['STOCHASTIC', 'MAXWAVE', 'MAXPRESSURE', 'IDQN', 'IPPO', 'MPLight', 'MPLightCO2', 'MA2C', 'FMA2C',
                              'MPLightFULL', 'FMA2CFull', 'FMA2CVAL'])
     ap.add_argument("--trials", type=int, default=1)
     ap.add_argument("--eps", type=int, default=100)

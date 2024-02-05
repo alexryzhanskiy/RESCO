@@ -39,6 +39,21 @@ def pressure(signals):
 
         rewards[signal_id] = -queue_length
     return rewards
+    
+def pressureCO2(signals):
+    rewards = dict()
+    for signal_id in signals:
+        total_co2 = 0
+        for lane in signals[signal_id].lanes:
+            total_co2 += signals[signal_id].full_observation[lane]['total_co2']
+
+        for lane in signals[signal_id].outbound_lanes:
+            dwn_signal = signals[signal_id].out_lane_to_signalid[lane]
+            if dwn_signal in signals[signal_id].signals:
+                total_co2 -= signals[signal_id].signals[dwn_signal].full_observation[lane]['total_co2']
+
+        rewards[signal_id] = round(-total_co2/100, 1)
+    return rewards
 
 
 def queue_maxwait(signals):

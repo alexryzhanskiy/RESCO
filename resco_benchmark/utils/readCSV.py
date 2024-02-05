@@ -10,6 +10,10 @@ env_base = '..'+os.sep+'environments'+os.sep
 names = [folder for folder in next(os.walk(log_dir))[1]]
 
 metric = 'queue'
+metricIndex = 2 # {0, 1, 2}
+                # 0 - reward (for step)
+                # 1 - max_queues (for step)
+                # 2 - queue_lengths (total lenght for step)
 output_file = 'avg_{}.py'.format(metric)
 run_avg = dict()
 
@@ -18,7 +22,7 @@ for name in names:
     print(split_name)
     map_name = split_name[2]
     average_per_episode = []
-    for i in range(1, 10000):
+    for i in range(1, 102): # default (1, 10000)
         trip_file_name = log_dir+name + os.sep + 'metrics_'+str(i)+'.csv'
         if not os.path.exists(trip_file_name):
             print('No '+trip_file_name)
@@ -31,13 +35,13 @@ for name in names:
             reward, wait, steps = 0, 0, 0
             for line in fp:
                 line = line.split('}')
-                queues = line[2]
+                queues = line[metricIndex]
                 signals = queues.split(':')
                 step_total = 0
                 for s, signal in enumerate(signals):
                     if s == 0: continue
                     queue = signal.split(',')
-                    queue = int(queue[0])
+                    queue = float(queue[0])
                     step_total += queue
                 step_avg = step_total / len(signals)
                 total += step_avg
@@ -46,7 +50,19 @@ for name in names:
         average = total / num_steps
         average_per_episode.append(average)
 
-    run_name = split_name[0]+' '+split_name[2]+' '+split_name[3]+' '+split_name[4]+' '+split_name[5]
+    agentName = split_name[0]
+    if 'CO2' in split_name[4]:
+        agentName += 'CO2'
+    
+    metricName = '';
+    if metricIndex == 0:
+        metricName = 'Reward'
+    elif metricIndex == 1:
+        metricName = 'Max queues'
+    else:
+        metricName = 'Queue lengths'
+
+    run_name = 'Agent: '+agentName+' | Map: '+split_name[2]+' | Metric: '+metricName
     average_per_episode = np.asarray(average_per_episode)
 
     if run_name in run_avg:
@@ -61,6 +77,7 @@ for run_name in run_avg:
     min_len = min([len(run) for run in list_runs])
     list_runs = [run[:min_len] for run in list_runs]
     avg_delays = np.sum(list_runs, 0)/len(list_runs)
+    # print('avg_delays = ' + ' '.join(str(e) for e in avg_delays))
     err = np.std(list_runs, axis=0)
 
     alg_name.append(run_name)

@@ -111,6 +111,19 @@ agent_configs = {
         'TARGET_UPDATE': 500,
         'demand_shape': 1
     },
+    'MPLightCO2': {
+        'agent': MPLight,
+        'state': states.mplightCO2,
+        'reward': rewards.pressureCO2,
+        'max_distance': 200,
+        'BATCH_SIZE': 32,
+        'GAMMA': 0.99,
+        'EPS_START': 1.0,
+        'EPS_END': 0.0,
+        'EPS_DECAY': 220,
+        'TARGET_UPDATE': 500,
+        'demand_shape': 1
+    },
     'FMA2C': {
         'agent': FMA2C,
         'state': states.fma2c,

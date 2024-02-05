@@ -122,6 +122,7 @@ class MultiSignal(gym.Env):
         self.sumo_cmd += ['--random', '--time-to-teleport', '-1', '--tripinfo-output',
                           os.path.join(self.log_dir, self.connection_name, 'tripinfo_' + str(self.run) + '.xml'),
                           '--tripinfo-output.write-unfinished',
+                          '--device.emissions.probability', '1.0',
                           '--no-step-log', 'True',
                           '--no-warnings', 'True']
         if self.libsumo:
