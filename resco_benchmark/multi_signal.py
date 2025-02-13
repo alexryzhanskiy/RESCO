@@ -31,7 +31,7 @@ class MultiSignal(gym.Env):
 
         # Run some steps in the simulation with default light configurations to detect phases
         if self.route is not None:
-            sumo_cmd = [sumolib.checkBinary('sumo'), '-n', net, '-r', self.route + '_1.rou.xml', '--no-warnings', 'True']
+            sumo_cmd = [sumolib.checkBinary('sumo'), '-n', net, '-r', self.route + '_1.rou.xml']#, '--no-warnings', 'True']
         else:
             sumo_cmd = [sumolib.checkBinary('sumo'), '-c', net, '--no-warnings', 'True']
         if self.libsumo:

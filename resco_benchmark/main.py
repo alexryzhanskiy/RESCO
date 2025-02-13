@@ -13,7 +13,7 @@ from resco_benchmark.config.mdp_config import mdp_configs
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--agent", type=str, default='STOCHASTIC',
-                    choices=['STOCHASTIC', 'MAXWAVE', 'MAXPRESSURE', 'IDQN', 'IPPO', 'MPLight', 'MPLightCO2', 'MA2C', 'FMA2C',
+                    choices=['STOCHASTIC', 'MAXWAVE', 'MAXPRESSURE', 'IDQN', 'IPPO', 'MPLight', 'MPLightCO2', 'MPLightCO2Multiple', 'MA2C', 'FMA2C',
                              'MPLightFULL', 'FMA2CFull', 'FMA2CVAL'])
     ap.add_argument("--trials", type=int, default=1)
     ap.add_argument("--eps", type=int, default=100)
@@ -34,6 +34,7 @@ def main():
     if args.libsumo and 'LIBSUMO_AS_TRACI' not in os.environ:
         raise EnvironmentError("Set LIBSUMO_AS_TRACI to nonempty value to enable libsumo")
 
+    print('Running', args.agent, 'on', args.map, 'with', args.trials, 'trials and', args.eps, 'episodes each')
     if args.procs == 1 or args.libsumo:
         run_trial(args, args.tr)
     else:

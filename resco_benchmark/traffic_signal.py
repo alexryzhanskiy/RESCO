@@ -191,8 +191,12 @@ class Signal:
         all_vehicles = set()
         for lane in self.lanes:
             vehicles = []
-            lane_measures = {'queue': 0, 'approach': 0, 'total_wait': 0, 'max_wait': 0, 'total_co2': 0}
+            lane_measures = {'queue': 0, 'approach': 0, 'total_wait': 0, 'max_wait': 0, 'total_co2': 0, 'alpha': 0, "awg_speed": 0, "total_mass":0}
             lane_vehicles = self.get_vehicles(lane, distance)
+            
+            total_speed = 0
+            total_mass = 0
+            alpha = 0
             for vehicle in lane_vehicles:
                 all_vehicles.add(vehicle)
                 # Update waiting time
@@ -209,7 +213,14 @@ class Signal:
                 vehicle_measures['position'] = self.sumo.vehicle.getLanePosition(vehicle)
                 vehicle_measures['type'] = self.sumo.vehicle.getTypeID(vehicle)
                 vehicle_measures['co2'] = self.sumo.vehicle.getCO2Emission(vehicle)
+                vehicle_measures['alpha'] = self.sumo.vehicle.getAngle(vehicle)
+                vehicle_measures['mass'] = self.sumo.vehicle.getMass(vehicle)
                 vehicles.append(vehicle_measures)
+                
+                total_speed += vehicle_measures['speed']
+                total_mass += vehicle_measures['mass'] / 1000
+                alpha += vehicle_measures['alpha']
+
                 if vehicle_measures['co2'] > 0:
                     lane_measures['total_co2'] = lane_measures['total_co2'] + vehicle_measures['co2']
                 if vehicle_measures['wait'] > 0:
@@ -221,6 +232,11 @@ class Signal:
                     lane_measures['approach'] = lane_measures['approach'] + 1
             lane_measures['vehicles'] = vehicles
             lane_measures['total_co2'] = round(lane_measures['total_co2'], 1)
+
+            lane_measures['awg_speed'] = total_speed / len(lane_vehicles) if lane_vehicles else 0
+            lane_measures['total_mass'] = total_mass
+            lane_measures['alpha'] = alpha / len(lane_vehicles) if lane_vehicles else 0
+
             full_observation[lane] = lane_measures
 
         full_observation['num_vehicles'] = all_vehicles

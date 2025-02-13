@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 
 log_dir = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'results' + os.sep)
+print(f"Log dir: {log_dir}")
 env_base = '..'+os.sep+'environments'+os.sep
 names = [folder for folder in next(os.walk(log_dir))[1]]
 

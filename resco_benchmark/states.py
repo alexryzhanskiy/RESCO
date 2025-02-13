@@ -99,6 +99,57 @@ def mplightCO2(signals):
         observations[signal_id] = np.asarray(obs)
     return observations
 
+def mplight_Co2Multiple(signals):
+    observations = dict()
+    for signal_id in signals:
+        signal = signals[signal_id]
+        obs = [signal.phase]
+        for direction in signal.lane_sets:
+            # Add inbound
+            queue_length = 0
+            total_wait = 0            
+            tot_approach = 0
+            total_co2 = 0
+            awg_speed = 0
+            awg_speed_out = 0
+            alpha_angle = 0
+            total_mass =0
+            total_mass_out = 0
+            num_lanes = len(signal.lane_sets[direction])
+            for lane in signal.lane_sets[direction]:
+                queue_length += signal.full_observation[lane]['queue']
+                total_wait += (signal.full_observation[lane]['total_wait'] / 28)
+                
+                #vehicles = signal.full_observation[lane]['vehicles']
+                # for vehicle in vehicles:
+                #     total_speed += vehicle['speed']
+                tot_approach += (signal.full_observation[lane]['approach'] / 28)
+                total_co2 += signal.full_observation[lane]['total_co2']
+                awg_speed += signal.full_observation[lane]['awg_speed']
+                alpha_angle = max(alpha_angle, signal.full_observation[lane]['alpha'])
+                total_mass += signal.full_observation[lane]['total_mass']
+
+            # Subtract downstream
+            num_lanes_out = len(signal.lane_sets_outbound[direction])
+            for lane in signal.lane_sets_outbound[direction]:
+                dwn_signal = signal.out_lane_to_signalid[lane]
+                if dwn_signal in signal.signals:
+                    queue_length -= signal.signals[dwn_signal].full_observation[lane]['queue']
+                    total_co2 -= signal.signals[dwn_signal].full_observation[lane]['total_co2']
+                    awg_speed_out -= signal.signals[dwn_signal].full_observation[lane]['awg_speed']                    
+                    total_mass_out += signal.signals[dwn_signal].full_observation[lane]['total_mass']
+                    
+            obs.append(queue_length)
+            obs.append(total_wait)            
+            obs.append(tot_approach)
+            obs.append(awg_speed/num_lanes if num_lanes else 0)
+            obs.append(awg_speed_out/num_lanes_out if num_lanes_out else 0)
+            obs.append(total_co2)       
+            obs.append(alpha_angle)     
+            obs.append(total_mass)
+            obs.append(total_mass_out)
+        observations[signal_id] = np.asarray(obs)
+    return observations
 
 def mplight_full(signals):
     observations = dict()

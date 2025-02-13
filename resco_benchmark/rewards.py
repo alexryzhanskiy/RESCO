@@ -55,6 +55,46 @@ def pressureCO2(signals):
         rewards[signal_id] = round(-total_co2/100, 1)
     return rewards
 
+def pressure_CO2Multiple(signals):
+    rewards = dict()
+    for signal_id in signals:
+        signal = signals[signal_id]
+        reward = 0
+        for direction in signal.lane_sets:
+            # Initialize variables for inbound metrics
+            queue_length = 0
+            total_wait = 0
+            total_co2 = 0
+            total_awg_speed = 0
+            num_lanes = len(signal.lane_sets[direction])
+
+            for lane in signal.lane_sets[direction]:
+                queue_length += signal.full_observation[lane]['queue']
+                total_wait += signal.full_observation[lane]['total_wait']
+                total_co2 += signal.full_observation[lane]['total_co2']
+                total_awg_speed += signal.full_observation[lane]['awg_speed']
+
+            # Average speed adjustment
+            avg_awg_speed = total_awg_speed / num_lanes if num_lanes else 0
+
+            # Subtract downstream metrics
+            for lane in signal.lane_sets_outbound[direction]:
+                dwn_signal = signal.out_lane_to_signalid[lane]
+                if dwn_signal in signal.signals:
+                    queue_length -= signal.signals[dwn_signal].full_observation[lane]['queue']
+                    total_co2 -= signal.signals[dwn_signal].full_observation[lane]['total_co2']
+
+            # Combine into a reward formula
+            reward += (
+                -0.5 * queue_length  # Penalize queue length
+                -0.3 * total_wait    # Penalize waiting time
+                -0.2 * total_co2     # Penalize CO2 emissions
+                + 0.4 * avg_awg_speed  # Reward higher average speed
+            )
+
+        rewards[signal_id] = reward
+    return rewards
+
 
 def queue_maxwait(signals):
     rewards = dict()
