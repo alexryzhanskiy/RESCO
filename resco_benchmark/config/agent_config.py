@@ -124,21 +124,36 @@ agent_configs = {
         'TARGET_UPDATE': 500,
         'demand_shape': 1
     },
-    'MPLightCO2Multiple': {
+    'MPLightCO2Muidltiple': {
         'agent': MPLight,
         'state': states.mplight_Co2Multiple,
         'reward': rewards.pressure_CO2Multiple,
         'max_distance': 200,
-        'BATCH_SIZE': 16,       # Reduced batch size for quicker training
+        'BATCH_SIZE': 32,       # Reduced batch size for quicker training
         'GAMMA': 0.99,          # Keep gamma unchanged
         'EPS_START': 1.0,       # Keep epsilon start
         'EPS_END': 0.1,         # Increase final epsilon for less exploration during testing
-        'EPS_DECAY': 50,        # Faster decay for testing
-        'TARGET_UPDATE': 100,   # Update target network more frequently
+        'EPS_DECAY': 220,        # Faster decay for testing
+        'TARGET_UPDATE': 500,   # Update target network more frequently
         'demand_shape': 1,
-        'steps': 1000,          # Fewer training steps for faster testing
-        'episodes': 10          # Reduced episodes
+        #'steps': 1000,          # Fewer training steps for faster testing
+        #'episodes': 10          # Reduced episodes
     },
+    'IDQNCO2Muidltiple': {
+        'agent': IDQN,
+        'state': states.idqn1_Multiple,
+        'reward': rewards.pressure_CO2MultipleNorm,
+        'max_distance': 200,
+        'BATCH_SIZE': 32,       # Reduced batch size for quicker training
+        'GAMMA': 0.99,          # Keep gamma unchanged
+        'EPS_START': 1.0,       # Keep epsilon start
+        'EPS_END': 0.1,         # Increase final epsilon for less exploration during testing
+        'EPS_DECAY': 220,        # Faster decay for testing
+        'TARGET_UPDATE': 500,   # Update target network more frequently
+        'demand_shape': 1,
+        #'steps': 1000,          # Fewer training steps for faster testing
+        #'episodes': 10          # Reduced episodes
+    },    
     'FMA2C': {
         'agent': FMA2C,
         'state': states.fma2c,

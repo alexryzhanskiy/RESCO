@@ -8,7 +8,8 @@
             "name": "Python Debugger: Current File with Arguments",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
+            "program": "${fileDirname}",
+            "cwd": "${workspaceFolder}/resco_benchmark",
             "console": "integratedTerminal",
             "args": [
                 "${command:pickArgs}"
@@ -21,7 +22,7 @@
             "program": "${workspaceFolder}/resco_benchmark/main.py",
             "console": "integratedTerminal",
             "args": [
-                "--agent", "MPLightCO2Multiple",
+                "--agent", "IDQNCO2Muidltiple",
                 "--eps", "10",
                 "--map", "grid4x4",
                 "--procs", "1",

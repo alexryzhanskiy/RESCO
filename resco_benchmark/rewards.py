@@ -55,6 +55,29 @@ def pressureCO2(signals):
         rewards[signal_id] = round(-total_co2/100, 1)
     return rewards
 
+def pressure_CO2MultipleNorm(signals):
+    rewards = dict()
+    for signal_id in signals:
+        total_wait = 0
+        queue_length = 0        
+        total_co2 = 0
+        total_awg_speed = 0
+        for lane in signals[signal_id].lanes:
+            total_wait += signals[signal_id].full_observation[lane]['total_wait']
+            queue_length += signals[signal_id].full_observation[lane]['queue']            
+            total_co2 += signals[signal_id].full_observation[lane]['total_co2']
+            total_awg_speed += signals[signal_id].full_observation[lane]['awg_speed']
+
+        total_co2 = total_co2/10e3 # Normalize CO2 emissions
+        reward = (
+                -0.5 * queue_length  # Penalize queue length
+                -0.3 * total_wait    # Penalize waiting time
+                -0.2 * total_co2     # Penalize CO2 emissions with normalization
+                + 0.4 * total_awg_speed  # Reward higher average speed
+            )
+        rewards[signal_id] = np.clip(reward/224, -4, 4).astype(np.float32)
+    return rewards
+
 def pressure_CO2Multiple(signals):
     rewards = dict()
     for signal_id in signals:

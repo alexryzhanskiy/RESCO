@@ -26,7 +26,7 @@ for metric in metrics:
         print(split_name)
         map_name = split_name[2]
         average_per_episode = []
-        for i in range(1, 102): # default (1, 10000)
+        for i in range(1, 20): # default (1, 10000)
             trip_file_name = log_dir+name + os.sep + 'tripinfo_'+str(i)+'.xml'
             if not os.path.exists(trip_file_name):
                 print('No '+trip_file_name)
@@ -92,7 +92,7 @@ for metric in metrics:
             metricName = 'Duration'
         elif metric == 'waitingTime':
             metricName = 'Waiting Time'
-        elif metricName == 'CO2_abs':
+        elif metric == 'CO2_abs':
             metricName = 'CO2'
         else:
             metricName = 'Not defined'
@@ -101,7 +101,7 @@ for metric in metrics:
         if 'CO2' in split_name[4]:
             agentName += 'CO2'
             
-        run_name = 'Agent: '+agentName+' | Map: '+split_name[2]+' | Metric: '+metricName
+        run_name = 'Agent: '+agentName+' | Map: '+split_name[2]+' | Metric: '+metricName + ' | Run: '+split_name[4]
         average_per_episode = np.asarray(average_per_episode)
 
         if run_name in run_avg:

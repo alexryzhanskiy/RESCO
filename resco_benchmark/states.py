@@ -151,6 +151,149 @@ def mplight_Co2Multiple(signals):
         observations[signal_id] = np.asarray(obs)
     return observations
 
+
+def idqn1_Multiple(signals):
+    observations = dict()
+    for signal_id in signals:
+        signal = signals[signal_id]
+        obs = []
+        act_index = signal.phase
+        for i, lane in enumerate(signal.lanes):
+            lane_obs = []
+            if i == act_index:
+                lane_obs.append(1)
+            else:
+                lane_obs.append(0)
+
+            lane_obs.append(signal.full_observation[lane]['approach'] / 28)
+            lane_obs.append(signal.full_observation[lane]['total_wait'] / 28)
+            lane_obs.append(signal.full_observation[lane]['queue'] / 28)
+ 
+            lane_obs.append(signal.full_observation[lane]['total_co2'] / 10e3)
+            lane_obs.append(signal.full_observation[lane]['awg_speed'] / 50)
+            lane_obs.append(signal.full_observation[lane]['alpha'])
+            lane_obs.append(signal.full_observation[lane]['total_mass'] / 1000)
+
+            # total_speed = 0
+            # vehicles = signal.full_observation[lane]['vehicles']
+            # for vehicle in vehicles:
+            #     total_speed += (vehicle['speed'] / 20 / 28)
+            # lane_obs.append(total_speed)
+
+            obs.append(lane_obs)
+        obs_shaped = np.expand_dims(np.asarray(obs), axis=0)
+        observations[signal_id] = obs_shaped
+    return observations
+
+def idqn1_Co2Multiple(signals):
+    observations = dict()
+    for signal_id in signals:
+        signal = signals[signal_id]
+        num_directions = len(signal.lane_sets)
+        num_features = 9  # queue_length, total_wait, tot_approach, awg_speed, awg_speed_out, total_co2, alpha_angle, total_mass, total_mass_out
+
+        # Initialize an array for normalized observations
+        obs = np.zeros((num_directions, num_features), dtype=np.float32)
+
+        for i, direction in enumerate(signal.lane_sets):
+            queue_length = 0
+            total_wait = 0
+            tot_approach = 0
+            total_co2 = 0
+            awg_speed = 0
+            awg_speed_out = 0
+            alpha_angle = 0
+            total_mass = 0
+            total_mass_out = 0
+
+            num_lanes = len(signal.lane_sets[direction])
+            for lane in signal.lane_sets[direction]:
+                queue_length += signal.full_observation[lane]['queue']
+                total_wait += signal.full_observation[lane]['total_wait']  
+                tot_approach += signal.full_observation[lane]['approach']  
+                total_co2 += signal.full_observation[lane]['total_co2']
+                awg_speed += signal.full_observation[lane]['awg_speed']
+                alpha_angle = max(alpha_angle, signal.full_observation[lane]['alpha'])
+                total_mass += signal.full_observation[lane]['total_mass']
+
+            num_lanes_out = len(signal.lane_sets_outbound[direction])
+            for lane in signal.lane_sets_outbound[direction]:
+                dwn_signal = signal.out_lane_to_signalid[lane]
+                if dwn_signal in signal.signals:
+                    queue_length -= signal.signals[dwn_signal].full_observation[lane]['queue']
+                    total_co2 -= signal.signals[dwn_signal].full_observation[lane]['total_co2']
+                    awg_speed_out -= signal.signals[dwn_signal].full_observation[lane]['awg_speed']
+                    total_mass_out -= signal.signals[dwn_signal].full_observation[lane]['total_mass']
+
+            #normalize values
+            obs[i, 0] = queue_length /28
+            obs[i, 1] = total_wait / 28
+            obs[i, 2] = tot_approach / 28
+            obs[i, 3] = (awg_speed / num_lanes if num_lanes else 0) / 50
+            obs[i, 4] = 1 #(awg_speed_out / num_lanes_out if num_lanes_out else 0) / 50
+            obs[i, 5] = total_co2 / 10e3
+            obs[i, 6] = 1 #alpha_angle
+            obs[i, 7] = 1 #total_mass / 1000
+            obs[i, 8] = 1 #total_mass_out / 1000
+
+        # Add the active phase as the first channel
+        phase_channel = np.full((1, num_directions, num_features), signal.phase, dtype=np.float32)
+
+        # Combine the phase information and lane data
+        obs = np.concatenate((phase_channel, np.expand_dims(obs, axis=0)), axis=0)  # (channels, height, width)
+
+        observations[signal_id] = obs
+
+    return observations
+
+def idqn_Co2Multiple(signals):
+    observations = dict()
+    for signal_id in signals:
+        signal = signals[signal_id]
+        num_directions = len(signal.lane_sets)
+        num_features = 5  # lane_queue, lane_wait, lane_co2, lane_approach, lane_speed
+
+        # Initialize an array for normalized observations
+        obs = np.zeros((num_directions, num_features), dtype=np.float32)
+
+        for i, lane_set_direction in enumerate(signal.lane_sets):
+            lane_queue = 0
+            lane_wait = 0
+            lane_co2 = 0
+            lane_approach = 0
+            lane_speed = 0
+            num_lanes = len(signal.lane_sets[lane_set_direction])
+
+            for lane in signal.lane_sets[lane_set_direction]:
+                lane_queue += signal.full_observation[lane]['queue']
+                lane_wait += signal.full_observation[lane]['total_wait']
+                lane_co2 += signal.full_observation[lane]['total_co2']
+                lane_approach += signal.full_observation[lane]['approach']
+                lane_speed += signal.full_observation[lane]['awg_speed']
+
+            # Normalize the lane data
+            lane_queue_norm = lane_queue / (num_lanes * 28) if num_lanes else 0
+            lane_wait_norm = lane_wait / (num_lanes * 28) if num_lanes else 0
+            lane_co2_norm = lane_co2 / (num_lanes * 100) if num_lanes else 0
+            lane_approach_norm = lane_approach / (num_lanes * 28) if num_lanes else 0
+            lane_speed_norm = lane_speed / (num_lanes * 50) if num_lanes else 0
+
+            obs[i, 0] = lane_queue_norm
+            obs[i, 1] = lane_wait_norm
+            obs[i, 2] = lane_co2_norm
+            obs[i, 3] = lane_approach_norm
+            obs[i, 4] = lane_speed_norm
+
+        # Add the active phase as the first channel
+        phase_channel = np.full((1, num_directions, num_features), signal.phase, dtype=np.float32)
+
+        # Combine the phase information and lane data
+        obs = np.concatenate((phase_channel, np.expand_dims(obs, axis=0)), axis=0)  # (channels, height, width)
+
+        observations[signal_id] = obs
+
+    return observations   
+
 def mplight_full(signals):
     observations = dict()
     for signal_id in signals:
