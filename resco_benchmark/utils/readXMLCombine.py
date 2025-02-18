@@ -1,6 +1,5 @@
 import os
 import xml.etree.ElementTree as ET
-
 import numpy as np
 import sys
 from resco_benchmark.config.map_config import map_configs
@@ -8,22 +7,20 @@ import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
-
 log_dir = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'results' + os.sep)
-print(f"Log dir: {log_dir}")
+#log_dir = os.path.join(os.path.dirname(os.getcwd()), 'results' + os.sep)
+print(f"Log dir: {log_dir}, cwd:'{os.getcwd()}'")
 env_base = '..'+os.sep+'environments'+os.sep
 names = [folder for folder in next(os.walk(log_dir))[1]]
+print(f"Names: {names}")
 
-# metrics = ['timeLoss', 'duration', 'waitingTime']
 metrics = ['duration', 'waitingTime', 'CO2_abs', 'waitingCount']
 
 for metric in metrics:
-    output_file = 'avg_{}.py'.format(metric)
     run_avg = dict()
 
     for name in names:
         split_name = name.split('-')
-        print(split_name)
         map_name = split_name[2]
         average_per_episode = []
         for i in range(1, 20): # default (1, 10000)
@@ -54,7 +51,6 @@ for metric in metrics:
                                 last_departure_time = depart_time
                                 last_depart_id = child.attrib['id']
                     except Exception as e:
-                        #raise e
                         break
                 route_file_name = env_base + map_name + os.sep + map_name + '_' + str(i) + '.rou.xml'
 
@@ -84,10 +80,9 @@ for metric in metrics:
                 average = total / num_trips
                 average_per_episode.append(average)
             except ET.ParseError as e:
-                #raise e
                 break
            
-        metricName = '';
+        metricName = ''
         if metric == 'duration':
             metricName = 'Duration'
         elif metric == 'waitingTime':
@@ -103,7 +98,6 @@ for metric in metrics:
         if 'CO2' in split_name[4]:
             agentName += 'CO2'
             
-        #run_name = 'Agent: '+agentName+' | Map: '+split_name[2]+' | Metric: '+metricName + ' | Run: '+split_name[4]
         run_name = f'Agent: {agentName}.{split_name[4]} | {split_name[2]} | {metricName}'
         average_per_episode = np.asarray(average_per_episode)
 
@@ -112,7 +106,6 @@ for metric in metrics:
         else:
             run_avg[run_name] = [average_per_episode]
 
-
     alg_res = []
     alg_name = []
     for run_name in run_avg:
@@ -120,7 +113,6 @@ for metric in metrics:
         min_len = min([len(run) for run in list_runs])
         list_runs = [run[:min_len] for run in list_runs]
         avg_delays = np.sum(list_runs, 0)/len(list_runs)
-        # print('avg_delays = ' + ' '.join(str(e) for e in avg_delays))
         err = np.std(list_runs, axis=0)
 
         alg_name.append(run_name)
@@ -129,12 +121,9 @@ for metric in metrics:
         alg_name.append(run_name+'_yerr')
         alg_res.append(err)
 
-        plt.title(run_name)
-        plt.plot(avg_delays)
-        plt.show()
-
-
-    np.set_printoptions(threshold=sys.maxsize)
-    with open(output_file, 'a') as out:
-        for i, res in enumerate(alg_res):
-            out.write("'{}': {},\n".format(alg_name[i], res.tolist()))
+    plt.title(f'Comparison of {metricName}')
+    for i, res in enumerate(alg_res):
+        if 'yerr' not in alg_name[i]:
+            plt.plot(res, label=alg_name[i])
+    plt.legend()
+    plt.show()

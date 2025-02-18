@@ -152,7 +152,7 @@ def mplight_Co2Multiple(signals):
     return observations
 
 
-def idqn1_Multiple(signals):
+def idqn_Co2Multiple(signals):
     observations = dict()
     for signal_id in signals:
         signal = signals[signal_id]
@@ -171,7 +171,7 @@ def idqn1_Multiple(signals):
  
             lane_obs.append(signal.full_observation[lane]['total_co2'] / 10e3)
             lane_obs.append(signal.full_observation[lane]['awg_speed'] / 50)
-            lane_obs.append(signal.full_observation[lane]['alpha'])
+            #lane_obs.append(signal.full_observation[lane]['alpha'])
             lane_obs.append(signal.full_observation[lane]['total_mass'] / 1000)
 
             # total_speed = 0
@@ -185,7 +185,7 @@ def idqn1_Multiple(signals):
         observations[signal_id] = obs_shaped
     return observations
 
-def idqn1_Co2Multiple(signals):
+def idqn_Co2MultipleLineSets(signals):
     observations = dict()
     for signal_id in signals:
         signal = signals[signal_id]
@@ -246,53 +246,7 @@ def idqn1_Co2Multiple(signals):
 
     return observations
 
-def idqn_Co2Multiple(signals):
-    observations = dict()
-    for signal_id in signals:
-        signal = signals[signal_id]
-        num_directions = len(signal.lane_sets)
-        num_features = 5  # lane_queue, lane_wait, lane_co2, lane_approach, lane_speed
-
-        # Initialize an array for normalized observations
-        obs = np.zeros((num_directions, num_features), dtype=np.float32)
-
-        for i, lane_set_direction in enumerate(signal.lane_sets):
-            lane_queue = 0
-            lane_wait = 0
-            lane_co2 = 0
-            lane_approach = 0
-            lane_speed = 0
-            num_lanes = len(signal.lane_sets[lane_set_direction])
-
-            for lane in signal.lane_sets[lane_set_direction]:
-                lane_queue += signal.full_observation[lane]['queue']
-                lane_wait += signal.full_observation[lane]['total_wait']
-                lane_co2 += signal.full_observation[lane]['total_co2']
-                lane_approach += signal.full_observation[lane]['approach']
-                lane_speed += signal.full_observation[lane]['awg_speed']
-
-            # Normalize the lane data
-            lane_queue_norm = lane_queue / (num_lanes * 28) if num_lanes else 0
-            lane_wait_norm = lane_wait / (num_lanes * 28) if num_lanes else 0
-            lane_co2_norm = lane_co2 / (num_lanes * 100) if num_lanes else 0
-            lane_approach_norm = lane_approach / (num_lanes * 28) if num_lanes else 0
-            lane_speed_norm = lane_speed / (num_lanes * 50) if num_lanes else 0
-
-            obs[i, 0] = lane_queue_norm
-            obs[i, 1] = lane_wait_norm
-            obs[i, 2] = lane_co2_norm
-            obs[i, 3] = lane_approach_norm
-            obs[i, 4] = lane_speed_norm
-
-        # Add the active phase as the first channel
-        phase_channel = np.full((1, num_directions, num_features), signal.phase, dtype=np.float32)
-
-        # Combine the phase information and lane data
-        obs = np.concatenate((phase_channel, np.expand_dims(obs, axis=0)), axis=0)  # (channels, height, width)
-
-        observations[signal_id] = obs
-
-    return observations   
+ 
 
 def mplight_full(signals):
     observations = dict()

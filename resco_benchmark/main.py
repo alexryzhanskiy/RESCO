@@ -31,6 +31,9 @@ def main():
     ap.add_argument("--load", type=bool, default=False)
     args = ap.parse_args()
 
+    if not args.log_dir.endswith(os.sep):
+        args.log_dir += os.sep
+
     if args.libsumo and 'LIBSUMO_AS_TRACI' not in os.environ:
         raise EnvironmentError("Set LIBSUMO_AS_TRACI to nonempty value to enable libsumo")
 
@@ -107,6 +110,8 @@ def run_trial(args, trial):
             act = agent.act(obs)
             obs, rew, done, info = env.step(act)
             agent.observe(obs, rew, done, info)
+        if hasattr(agent, 'save'):
+            agent.save()
     env.close()
 
 

@@ -45,6 +45,11 @@ class IDQN(IndependentAgent):
                 self.agents[key].load(self.config['log_dir']+'agent_'+key+'.pt')
                 self.agents[key].agent.training = False
 
+    def save(self):
+        for key in self.agents:
+            path = self.config['log_dir'] + 'agent_' + key + '.pt'
+            self.agents[key].save(path)
+
 
 class DQNAgent(Agent):
     def __init__(self, config, act_space, model, num_agents=0):
@@ -96,12 +101,16 @@ class DQNAgent(Agent):
             self.agent.observe(observation, reward, done, False)
 
     def save(self, path):
+        if not path.endswith('.pt'):
+            path += '.pt'
         torch.save({
             'model_state_dict': self.model.state_dict(),
             'optimizer_state_dict': self.optimizer.state_dict(),
-        }, path+'.pt')
+        }, path)
 
     def load(self, path):
+        if not path.endswith('.pt'):
+            path += '.pt'
         self.model.load_state_dict(torch.load(path)['model_state_dict'])
         self.optimizer.load_state_dict(torch.load(path)['optimizer_state_dict'])
 

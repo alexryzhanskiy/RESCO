@@ -141,7 +141,7 @@ agent_configs = {
     },
     'IDQNCO2Muidltiple': {
         'agent': IDQN,
-        'state': states.idqn1_Multiple,
+        'state': states.idqn_Co2Multiple,
         'reward': rewards.pressure_CO2MultipleNorm,
         'max_distance': 200,
         'BATCH_SIZE': 32,       # Reduced batch size for quicker training
