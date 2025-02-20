@@ -52,7 +52,7 @@ def pressureCO2(signals):
             if dwn_signal in signals[signal_id].signals:
                 total_co2 -= signals[signal_id].signals[dwn_signal].full_observation[lane]['total_co2']
 
-        rewards[signal_id] = round(-total_co2/100, 1)
+        rewards[signal_id] = round(-total_co2/10e5, 1) #normalize CO2 emissions
     return rewards
 
 def pressure_CO2MultipleNorm(signals):

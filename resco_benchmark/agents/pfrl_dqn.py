@@ -1,5 +1,6 @@
 from typing import Any, Sequence
 import numpy as np
+import os
 
 import torch
 import torch.nn as nn
@@ -46,6 +47,8 @@ class IDQN(IndependentAgent):
                 self.agents[key].agent.training = False
 
     def save(self):
+        if not self.config['log_dir'].endswith(os.sep):
+            self.config['log_dir'] += os.sep
         for key in self.agents:
             path = self.config['log_dir'] + 'agent_' + key + '.pt'
             self.agents[key].save(path)

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-11-13 10:27:24 by Eclipse SUMO sumo Version 1.20.0
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="single-intersection.net.xml"/>
+        <route-files value="single-intersection-gen.rou-big.xml"/>
+    </input>
+
+	<emissions>
+		<device.emissions.probability value="1"/>
+	</emissions>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+</configuration>

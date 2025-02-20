@@ -8,6 +8,48 @@
 
 
 signal_configs = {
+    '2way_single': {
+        # 'phase_pairs': [[1, 7], [4, 10]], 
+        'valid_acts': None,
+        't': {
+			'lane_sets': {
+                'S-W': ['s_t_1'],
+                'S-S': [],
+                'S-E': [ 's_t_0' ],
+                'W-N': [ 'w_t_1' ],
+                'W-W': [],
+                'W-S': [  'w_t_0' ],
+                'N-E': [ 'n_t_1' ],
+                'N-N': [],
+                'N-W': [ 'n_t_0' ],
+                'E-S': [ 'e_t_1' ],
+                'E-E': [],
+                'E-N': [ 'e_t_0' ]
+            },
+			'downstream': {'N': None, 'S': None, 'W': None, 'E': None}
+		}
+	},
+    '1way_single': {
+        'valid_acts': None,
+        't': {
+            'lane_sets': {
+                'S-W': [],
+                'S-S': [],
+                'S-E': ['s_t_0' ],
+                'W-N': [],
+                'W-W': [],
+                'W-S': [ 'w_t_0' ],
+                'N-E': [],
+                'N-N': [],
+                'N-W': [ 'n_t_0' ],
+                'E-S': [],
+                'E-E': [],
+                'E-N': [ 'e_t_0' ]
+            },
+            'downstream': {'N': None, 'S': None, 'W': None, 'E': None}
+        }
+    },
+    
 	'grid4x4': {
 		'phase_pairs': [[1, 7], [2, 8], [1, 2], [7, 8], [4, 10], [5, 11], [10, 11], [4, 5]],
 		'valid_acts': None,

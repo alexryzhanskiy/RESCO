@@ -3,6 +3,10 @@ import numpy as np
 import traci
 import sumolib
 import gym
+import glob
+
+from datetime import datetime
+
 from resco_benchmark.traffic_signal import Signal
 
 
@@ -115,8 +119,17 @@ class MultiSignal(gym.Env):
             self.sumo_cmd.append('--start')
         else:
             self.sumo_cmd.append(sumolib.checkBinary('sumo'))
-        if self.route is not None:
-            self.sumo_cmd += ['-n', self.net, '-r', self.route + '_'+str(self.run)+'.rou.xml']
+        if self.route is not None:            
+            # Get the directory from self.route
+            route_dir = os.path.dirname(self.route)
+            # Get all .rou.xml files in the directory (sorted for consistency)
+            route_files = sorted(glob.glob(os.path.join(route_dir, '*.rou.xml')))
+            if not route_files:
+                raise Exception("No route files found in directory: {}".format(route_dir))
+            # Select file based on current run using modulo wrap-around
+            file_index = (self.run - 1) % len(route_files)
+            route_file = route_files[file_index]
+            self.sumo_cmd += ['-n', self.net, '-r', route_file]
         else:
             self.sumo_cmd += ['-c', self.net]
         self.sumo_cmd += ['--random', '--time-to-teleport', '-1', '--tripinfo-output',
@@ -213,7 +226,7 @@ class MultiSignal(gym.Env):
 
     def save_metrics(self):
         log = os.path.join(self.log_dir, self.connection_name+ os.sep + 'metrics_' + str(self.run) + '.csv')
-        print('saving', log)
+        print(f'{datetime.now().strftime("%H:%M:%S")} saving {log}')
         with open(log, 'w+') as output_file:
             for line in self.metrics:
                 csv_line = ''

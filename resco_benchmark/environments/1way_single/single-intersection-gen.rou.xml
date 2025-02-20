@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-09-23 11:26:31 by Eclipse SUMO netedit Version 1.20.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="route_en" edges="e_t t_n"/>
+    <route id="route_es" edges="e_t t_s"/>
+    <route id="route_ew" edges="e_t t_w"/>
+    <route id="route_ne" edges="n_t t_e"/>
+    <route id="route_ns" edges="n_t t_s"/>
+    <route id="route_nw" edges="n_t t_w"/>
+    <route id="route_se" edges="s_t t_e"/>
+    <route id="route_sn" edges="s_t t_n"/>
+    <route id="route_sw" edges="s_t t_w"/>
+    <route id="route_we" edges="w_t t_e"/>
+    <route id="route_wn" edges="w_t t_n"/>
+    <route id="route_ws" edges="w_t t_s"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="flow_en_0" begin="0.00" departLane="best" departPos="base" color="blue" route="route_en" end="10000.00" vehsPerHour="160"/>
+    <flow id="flow_es_0" begin="0.00" departLane="best" departPos="base" color="blue" route="route_es" end="10000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_0" begin="0.00" departLane="best" departPos="base" color="blue" route="route_ew" end="10000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_ne_0" begin="0.00" departLane="best" departPos="base" color="white" route="route_ne" end="10000.00" vehsPerHour="100"/>
+    <flow id="flow_ns_0" begin="0.00" departLane="best" departPos="base" color="white" route="route_ns" end="10000.00" vehsPerHour="800"/>
+    <flow id="flow_nw_0" begin="0.00" departLane="best" departPos="base" color="white" route="route_nw" end="10000.00" vehsPerHour="400"/>
+    <flow id="flow_se_0" begin="0.00" departLane="best" departPos="base" color="green" route="route_se" end="10000.00" vehsPerHour="160"/>
+    <flow id="flow_sn_0" begin="0.00" departLane="best" departPos="base" color="green" route="route_sn" end="10000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_sw_0" begin="0.00" departLane="best" departPos="base" color="green" route="route_sw" end="10000.00" vehsPerHour="30"/>
+    <flow id="flow_we_0" begin="0.00" departLane="best" departPos="base" route="route_we" end="10000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_wn_0" begin="0.00" departLane="best" departPos="base" route="route_wn" end="10000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_0" begin="0.00" departLane="best" departPos="base" route="route_ws" end="10000.00" vehsPerHour="160"/>
+    <flow id="flow_en_1" begin="10000.00" departLane="best" departPos="base" color="blue" route="route_en" end="20000.00" vehsPerHour="400"/>
+    <flow id="flow_es_1" begin="10000.00" departLane="best" departPos="base" color="blue" route="route_es" end="20000.00" vehsPerHour="100"/>
+    <flow id="flow_ew_1" begin="10000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="20000.00" vehsPerHour="800"/>
+    <flow id="flow_ne_1" begin="10000.00" departLane="best" departPos="base" color="white" route="route_ne" end="20000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_1" begin="10000.00" departLane="best" departPos="base" color="white" route="route_ns" end="20000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_nw_1" begin="10000.00" departLane="best" departPos="base" color="white" route="route_nw" end="20000.00" vehsPerHour="160"/>
+    <flow id="flow_se_1" begin="10000.00" departLane="best" departPos="base" color="green" route="route_se" end="20000.00" vehsPerHour="160"/>
+    <flow id="flow_sn_1" begin="10000.00" departLane="best" departPos="base" color="green" route="route_sn" end="20000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_sw_1" begin="10000.00" departLane="best" departPos="base" color="green" route="route_sw" end="20000.00" vehsPerHour="30"/>
+    <flow id="flow_we_1" begin="10000.00" departLane="best" departPos="base" route="route_we" end="20000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_wn_1" begin="10000.00" departLane="best" departPos="base" route="route_wn" end="20000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_1" begin="10000.00" departLane="best" departPos="base" route="route_ws" end="20000.00" vehsPerHour="160"/>
+    <flow id="flow_en_2" begin="20000.00" departLane="best" departPos="base" color="blue" route="route_en" end="30000.00" vehsPerHour="160"/>
+    <flow id="flow_es_2" begin="20000.00" departLane="best" departPos="base" color="blue" route="route_es" end="30000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_2" begin="20000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="30000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_ne_2" begin="20000.00" departLane="best" departPos="base" color="white" route="route_ne" end="30000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_2" begin="20000.00" departLane="best" departPos="base" color="white" route="route_ns" end="30000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_nw_2" begin="20000.00" departLane="best" departPos="base" color="white" route="route_nw" end="30000.00" vehsPerHour="160"/>
+    <flow id="flow_se_2" begin="20000.00" departLane="best" departPos="base" color="green" route="route_se" end="30000.00" vehsPerHour="400"/>
+    <flow id="flow_sn_2" begin="20000.00" departLane="best" departPos="base" color="green" route="route_sn" end="30000.00" vehsPerHour="800"/>
+    <flow id="flow_sw_2" begin="20000.00" departLane="best" departPos="base" color="green" route="route_sw" end="30000.00" vehsPerHour="100"/>
+    <flow id="flow_we_2" begin="20000.00" departLane="best" departPos="base" route="route_we" end="30000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_wn_2" begin="20000.00" departLane="best" departPos="base" route="route_wn" end="30000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_2" begin="20000.00" departLane="best" departPos="base" route="route_ws" end="30000.00" vehsPerHour="160"/>
+    <flow id="flow_en_3" begin="30000.00" departLane="best" departPos="base" color="blue" route="route_en" end="40000.00" vehsPerHour="160"/>
+    <flow id="flow_es_3" begin="30000.00" departLane="best" departPos="base" color="blue" route="route_es" end="40000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_3" begin="30000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="40000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_ne_3" begin="30000.00" departLane="best" departPos="base" color="white" route="route_ne" end="40000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_3" begin="30000.00" departLane="best" departPos="base" color="white" route="route_ns" end="40000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_nw_3" begin="30000.00" departLane="best" departPos="base" color="white" route="route_nw" end="40000.00" vehsPerHour="160"/>
+    <flow id="flow_se_3" begin="30000.00" departLane="best" departPos="base" color="green" route="route_se" end="40000.00" vehsPerHour="160"/>
+    <flow id="flow_sn_3" begin="30000.00" departLane="best" departPos="base" color="green" route="route_sn" end="40000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_sw_3" begin="30000.00" departLane="best" departPos="base" color="green" route="route_sw" end="40000.00" vehsPerHour="30"/>
+    <flow id="flow_we_3" begin="30000.00" departLane="best" departPos="base" route="route_we" end="40000.00" vehsPerHour="800"/>
+    <flow id="flow_wn_3" begin="30000.00" departLane="best" departPos="base" route="route_wn" end="40000.00" vehsPerHour="100"/>
+    <flow id="flow_ws_3" begin="30000.00" departLane="best" departPos="base" route="route_ws" end="40000.00" vehsPerHour="400"/>
+    <flow id="flow_en_4" begin="40000.00" departLane="best" departPos="base" color="blue" route="route_en" end="50000.00" vehsPerHour="160"/>
+    <flow id="flow_es_4" begin="40000.00" departLane="best" departPos="base" color="blue" route="route_es" end="50000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_4" begin="40000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="50000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_ne_4" begin="40000.00" departLane="best" departPos="base" color="white" route="route_ne" end="50000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_4" begin="40000.00" departLane="best" departPos="base" color="white" route="route_ns" end="50000.00" vehsPerHour="800"/>
+    <flow id="flow_nw_4" begin="40000.00" departLane="best" departPos="base" color="white" route="route_nw" end="50000.00" vehsPerHour="400"/>
+    <flow id="flow_se_4" begin="40000.00" departLane="best" departPos="base" color="green" route="route_se" end="50000.00" vehsPerHour="400"/>
+    <flow id="flow_sn_4" begin="40000.00" departLane="best" departPos="base" color="green" route="route_sn" end="50000.00" vehsPerHour="800"/>
+    <flow id="flow_sw_4" begin="40000.00" departLane="best" departPos="base" color="green" route="route_sw" end="50000.00" vehsPerHour="30"/>
+    <flow id="flow_we_4" begin="40000.00" departLane="best" departPos="base" route="route_we" end="50000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_wn_4" begin="40000.00" departLane="best" departPos="base" route="route_wn" end="50000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_4" begin="40000.00" departLane="best" departPos="base" route="route_ws" end="50000.00" vehsPerHour="160"/>
+    <flow id="flow_en_5" begin="50000.00" departLane="best" departPos="base" color="blue" route="route_en" end="60000.00" vehsPerHour="160"/>
+    <flow id="flow_es_5" begin="50000.00" departLane="best" departPos="base" color="blue" route="route_es" end="60000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_5" begin="50000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="60000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_ne_5" begin="50000.00" departLane="best" departPos="base" color="white" route="route_ne" end="60000.00" vehsPerHour="80"/>
+    <flow id="flow_ns_5" begin="50000.00" departLane="best" departPos="base" color="white" route="route_ns" end="60000.00" vehsPerHour="800"/>
+    <flow id="flow_nw_5" begin="50000.00" departLane="best" departPos="base" color="white" route="route_nw" end="60000.00" vehsPerHour="400"/>
+    <flow id="flow_se_5" begin="50000.00" departLane="best" departPos="base" color="green" route="route_se" end="60000.00" vehsPerHour="160"/>
+    <flow id="flow_sn_5" begin="50000.00" departLane="best" departPos="base" color="green" route="route_sn" end="60000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_sw_5" begin="50000.00" departLane="best" departPos="base" color="green" route="route_sw" end="60000.00" vehsPerHour="30"/>
+    <flow id="flow_we_5" begin="50000.00" departLane="best" departPos="base" route="route_we" end="60000.00" vehsPerHour="800"/>
+    <flow id="flow_wn_5" begin="50000.00" departLane="best" departPos="base" route="route_wn" end="60000.00" vehsPerHour="80"/>
+    <flow id="flow_ws_5" begin="50000.00" departLane="best" departPos="base" route="route_ws" end="60000.00" vehsPerHour="400"/>
+    <flow id="flow_en_6" begin="60000.00" departLane="best" departPos="base" color="blue" route="route_en" end="70000.00" vehsPerHour="400"/>
+    <flow id="flow_es_6" begin="60000.00" departLane="best" departPos="base" color="blue" route="route_es" end="70000.00" vehsPerHour="80"/>
+    <flow id="flow_ew_6" begin="60000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="70000.00" vehsPerHour="800"/>
+    <flow id="flow_ne_6" begin="60000.00" departLane="best" departPos="base" color="white" route="route_ne" end="70000.00" vehsPerHour="80"/>
+    <flow id="flow_ns_6" begin="60000.00" departLane="best" departPos="base" color="white" route="route_ns" end="70000.00" vehsPerHour="800"/>
+    <flow id="flow_nw_6" begin="60000.00" departLane="best" departPos="base" color="white" route="route_nw" end="70000.00" vehsPerHour="400"/>
+    <flow id="flow_se_6" begin="60000.00" departLane="best" departPos="base" color="green" route="route_se" end="70000.00" vehsPerHour="160"/>
+    <flow id="flow_sn_6" begin="60000.00" departLane="best" departPos="base" color="green" route="route_sn" end="70000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_sw_6" begin="60000.00" departLane="best" departPos="base" color="green" route="route_sw" end="70000.00" vehsPerHour="30"/>
+    <flow id="flow_we_6" begin="60000.00" departLane="best" departPos="base" route="route_we" end="70000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_wn_6" begin="60000.00" departLane="best" departPos="base" route="route_wn" end="70000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_6" begin="60000.00" departLane="best" departPos="base" route="route_ws" end="70000.00" vehsPerHour="160"/>
+    <flow id="flow_en_7" begin="70000.00" departLane="best" departPos="base" color="blue" route="route_en" end="80000.00" vehsPerHour="160"/>
+    <flow id="flow_es_7" begin="70000.00" departLane="best" departPos="base" color="blue" route="route_es" end="80000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_7" begin="70000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="80000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_ne_7" begin="70000.00" departLane="best" departPos="base" color="white" route="route_ne" end="80000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_7" begin="70000.00" departLane="best" departPos="base" color="white" route="route_ns" end="80000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_nw_7" begin="70000.00" departLane="best" departPos="base" color="white" route="route_nw" end="80000.00" vehsPerHour="160"/>
+    <flow id="flow_se_7" begin="70000.00" departLane="best" departPos="base" color="green" route="route_se" end="80000.00" vehsPerHour="400"/>
+    <flow id="flow_sn_7" begin="70000.00" departLane="best" departPos="base" color="green" route="route_sn" end="80000.00" vehsPerHour="800"/>
+    <flow id="flow_sw_7" begin="70000.00" departLane="best" departPos="base" color="green" route="route_sw" end="80000.00" vehsPerHour="80"/>
+    <flow id="flow_we_7" begin="70000.00" departLane="best" departPos="base" route="route_we" end="80000.00" vehsPerHour="800"/>
+    <flow id="flow_wn_7" begin="70000.00" departLane="best" departPos="base" route="route_wn" end="80000.00" vehsPerHour="80"/>
+    <flow id="flow_ws_7" begin="70000.00" departLane="best" departPos="base" route="route_ws" end="80000.00" vehsPerHour="400"/>
+    <flow id="flow_en_8" begin="80000.00" departLane="best" departPos="base" color="blue" route="route_en" end="90000.00" vehsPerHour="400"/>
+    <flow id="flow_es_8" begin="80000.00" departLane="best" departPos="base" color="blue" route="route_es" end="90000.00" vehsPerHour="80"/>
+    <flow id="flow_ew_8" begin="80000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="90000.00" vehsPerHour="800"/>
+    <flow id="flow_ne_8" begin="80000.00" departLane="best" departPos="base" color="white" route="route_ne" end="90000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_8" begin="80000.00" departLane="best" departPos="base" color="white" route="route_ns" end="90000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_nw_8" begin="80000.00" departLane="best" departPos="base" color="white" route="route_nw" end="90000.00" vehsPerHour="160"/>
+    <flow id="flow_se_8" begin="80000.00" departLane="best" departPos="base" color="green" route="route_se" end="90000.00" vehsPerHour="400"/>
+    <flow id="flow_sn_8" begin="80000.00" departLane="best" departPos="base" color="green" route="route_sn" end="90000.00" vehsPerHour="800"/>
+    <flow id="flow_sw_8" begin="80000.00" departLane="best" departPos="base" color="green" route="route_sw" end="90000.00" vehsPerHour="80"/>
+    <flow id="flow_we_8" begin="80000.00" departLane="best" departPos="base" route="route_we" end="90000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_wn_8" begin="80000.00" departLane="best" departPos="base" route="route_wn" end="90000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_8" begin="80000.00" departLane="best" departPos="base" route="route_ws" end="90000.00" vehsPerHour="160"/>
+    <flow id="flow_en_9" begin="90000.00" departLane="best" departPos="base" color="blue" route="route_en" end="100000.00" vehsPerHour="400"/>
+    <flow id="flow_es_9" begin="90000.00" departLane="best" departPos="base" color="blue" route="route_es" end="100000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_9" begin="90000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="100000.00" vehsPerHour="800"/>
+    <flow id="flow_ne_9" begin="90000.00" departLane="best" departPos="base" color="white" route="route_ne" end="100000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_9" begin="90000.00" departLane="best" departPos="base" color="white" route="route_ns" end="100000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_nw_9" begin="90000.00" departLane="best" departPos="base" color="white" route="route_nw" end="100000.00" vehsPerHour="160"/>
+    <flow id="flow_se_9" begin="90000.00" departLane="best" departPos="base" color="green" route="route_se" end="100000.00" vehsPerHour="160"/>
+    <flow id="flow_sn_9" begin="90000.00" departLane="best" departPos="base" color="green" route="route_sn" end="100000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_sw_9" begin="90000.00" departLane="best" departPos="base" color="green" route="route_sw" end="100000.00" vehsPerHour="30"/>
+    <flow id="flow_we_9" begin="90000.00" departLane="best" departPos="base" route="route_we" end="100000.00" vehsPerHour="800"/>
+    <flow id="flow_wn_9" begin="90000.00" departLane="best" departPos="base" route="route_wn" end="100000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_9" begin="90000.00" departLane="best" departPos="base" route="route_ws" end="100000.00" vehsPerHour="400"/>
+    <flow id="flow_en_10" begin="100000.00" departLane="best" departPos="base" color="blue" route="route_en" end="110000.00" vehsPerHour="160"/>
+    <flow id="flow_es_10" begin="100000.00" departLane="best" departPos="base" color="blue" route="route_es" end="110000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_10" begin="100000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="110000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_ne_10" begin="100000.00" departLane="best" departPos="base" color="white" route="route_ne" end="110000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_10" begin="100000.00" departLane="best" departPos="base" color="white" route="route_ns" end="110000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_nw_10" begin="100000.00" departLane="best" departPos="base" color="white" route="route_nw" end="110000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_se_10" begin="100000.00" departLane="best" departPos="base" color="green" route="route_se" end="110000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_sn_10" begin="100000.00" departLane="best" departPos="base" color="green" route="route_sn" end="110000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_sw_10" begin="100000.00" departLane="best" departPos="base" color="green" route="route_sw" end="110000.00" vehsPerHour="30"/>
+    <flow id="flow_we_10" begin="100000.00" departLane="best" departPos="base" route="route_we" end="110000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_wn_10" begin="100000.00" departLane="best" departPos="base" route="route_wn" end="110000.00" vehsPerHour="60"/>
+    <flow id="flow_ws_10" begin="100000.00" departLane="best" departPos="base" route="route_ws" end="110000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_en_11" begin="110000.00" departLane="best" departPos="base" color="blue" route="route_en" end="120000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_es_11" begin="110000.00" departLane="best" departPos="base" color="blue" route="route_es" end="120000.00" vehsPerHour="60"/>
+    <flow id="flow_ew_11" begin="110000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="120000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_ne_11" begin="110000.00" departLane="best" departPos="base" color="white" route="route_ne" end="120000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_11" begin="110000.00" departLane="best" departPos="base" color="white" route="route_ns" end="120000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_nw_11" begin="110000.00" departLane="best" departPos="base" color="white" route="route_nw" end="120000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_se_11" begin="110000.00" departLane="best" departPos="base" color="green" route="route_se" end="120000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_sn_11" begin="110000.00" departLane="best" departPos="base" color="green" route="route_sn" end="120000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_sw_11" begin="110000.00" departLane="best" departPos="base" color="green" route="route_sw" end="120000.00" vehsPerHour="30"/>
+    <flow id="flow_we_11" begin="110000.00" departLane="best" departPos="base" route="route_we" end="120000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_wn_11" begin="110000.00" departLane="best" departPos="base" route="route_wn" end="120000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_11" begin="110000.00" departLane="best" departPos="base" route="route_ws" end="120000.00" vehsPerHour="160"/>
+    <flow id="flow_en_12" begin="120000.00" departLane="best" departPos="base" color="blue" route="route_en" end="130000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_es_12" begin="120000.00" departLane="best" departPos="base" color="blue" route="route_es" end="130000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_12" begin="120000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="130000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_ne_12" begin="120000.00" departLane="best" departPos="base" color="white" route="route_ne" end="130000.00" vehsPerHour="60"/>
+    <flow id="flow_ns_12" begin="120000.00" departLane="best" departPos="base" color="white" route="route_ns" end="130000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_nw_12" begin="120000.00" departLane="best" departPos="base" color="white" route="route_nw" end="130000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_se_12" begin="120000.00" departLane="best" departPos="base" color="green" route="route_se" end="130000.00" vehsPerHour="160"/>
+    <flow id="flow_sn_12" begin="120000.00" departLane="best" departPos="base" color="green" route="route_sn" end="130000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_sw_12" begin="120000.00" departLane="best" departPos="base" color="green" route="route_sw" end="130000.00" vehsPerHour="30"/>
+    <flow id="flow_we_12" begin="120000.00" departLane="best" departPos="base" route="route_we" end="130000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_wn_12" begin="120000.00" departLane="best" departPos="base" route="route_wn" end="130000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_12" begin="120000.00" departLane="best" departPos="base" route="route_ws" end="130000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_en_13" begin="130000.00" departLane="best" departPos="base" color="blue" route="route_en" end="140000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_es_13" begin="130000.00" departLane="best" departPos="base" color="blue" route="route_es" end="140000.00" vehsPerHour="30"/>
+    <flow id="flow_ew_13" begin="130000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="140000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_ne_13" begin="130000.00" departLane="best" departPos="base" color="white" route="route_ne" end="140000.00" vehsPerHour="30"/>
+    <flow id="flow_ns_13" begin="130000.00" departLane="best" departPos="base" color="white" route="route_ns" end="140000.00" vehsPerHour="219.9951112197506688517"/>
+    <flow id="flow_nw_13" begin="130000.00" departLane="best" departPos="base" color="white" route="route_nw" end="140000.00" vehsPerHour="160"/>
+    <flow id="flow_se_13" begin="130000.00" departLane="best" departPos="base" color="green" route="route_se" end="140000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_sn_13" begin="130000.00" departLane="best" departPos="base" color="green" route="route_sn" end="140000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_sw_13" begin="130000.00" departLane="best" departPos="base" color="green" route="route_sw" end="140000.00" vehsPerHour="60"/>
+    <flow id="flow_we_13" begin="130000.00" departLane="best" departPos="base" route="route_we" end="140000.00" vehsPerHour="780.06500541711807272804"/>
+    <flow id="flow_wn_13" begin="130000.00" departLane="best" departPos="base" route="route_wn" end="140000.00" vehsPerHour="30"/>
+    <flow id="flow_ws_13" begin="130000.00" departLane="best" departPos="base" route="route_ws" end="140000.00" vehsPerHour="379.98733375554149915843"/>
+    <flow id="flow_en_14" begin="140000.00" departLane="best" departPos="base" color="blue" route="route_en" end="150000.00" vehsPerHour="360"/>
+    <flow id="flow_es_14" begin="140000.00" departLane="best" departPos="base" color="blue" route="route_es" end="150000.00" vehsPerHour="40"/>
+    <flow id="flow_ew_14" begin="140000.00" departLane="best" departPos="base" color="blue" route="route_ew" end="150000.00" vehsPerHour="759.97466751108299831685"/>
+    <flow id="flow_ne_14" begin="140000.00" departLane="best" departPos="base" color="white" route="route_ne" end="150000.00" vehsPerHour="40"/>
+    <flow id="flow_ns_14" begin="140000.00" departLane="best" departPos="base" color="white" route="route_ns" end="150000.00" vehsPerHour="759.97466751108299831685"/>
+    <flow id="flow_nw_14" begin="140000.00" departLane="best" departPos="base" color="white" route="route_nw" end="150000.00" vehsPerHour="360"/>
+    <flow id="flow_se_14" begin="140000.00" departLane="best" departPos="base" color="green" route="route_se" end="150000.00" vehsPerHour="360"/>
+    <flow id="flow_sn_14" begin="140000.00" departLane="best" departPos="base" color="green" route="route_sn" end="150000.00" vehsPerHour="759.97466751108299831685"/>
+    <flow id="flow_sw_14" begin="140000.00" departLane="best" departPos="base" color="green" route="route_sw" end="150000.00" vehsPerHour="40"/>
+    <flow id="flow_we_14" begin="140000.00" departLane="best" departPos="base" route="route_we" end="150000.00" vehsPerHour="759.97466751108299831685"/>
+    <flow id="flow_wn_14" begin="140000.00" departLane="best" departPos="base" route="route_wn" end="150000.00" vehsPerHour="40"/>
+    <flow id="flow_ws_14" begin="140000.00" departLane="best" departPos="base" route="route_ws" end="150000.00" vehsPerHour="360"/>
+</routes>

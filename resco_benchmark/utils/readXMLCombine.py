@@ -6,6 +6,7 @@ from resco_benchmark.config.map_config import map_configs
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+import glob
 
 log_dir = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'results' + os.sep)
 #log_dir = os.path.join(os.path.dirname(os.getcwd()), 'results' + os.sep)
@@ -23,7 +24,11 @@ for metric in metrics:
         split_name = name.split('-')
         map_name = split_name[2]
         average_per_episode = []
-        for i in range(1, 20): # default (1, 10000)
+
+        files = glob.glob(os.path.join(log_dir, name, 'tripinfo_*.xml'))
+        count = len(files)
+
+        for i in range(1, count + 1):
             trip_file_name = log_dir+name + os.sep + 'tripinfo_'+str(i)+'.xml'
             if not os.path.exists(trip_file_name):
                 print('No '+trip_file_name)
@@ -98,7 +103,7 @@ for metric in metrics:
         if 'CO2' in split_name[4]:
             agentName += 'CO2'
             
-        run_name = f'Agent: {agentName}.{split_name[4]} | {split_name[2]} | {metricName}'
+        run_name = f'Agent: {agentName}.{split_name[4]}.{split_name[5]} | {split_name[2]} | {metricName}'
         average_per_episode = np.asarray(average_per_episode)
 
         if run_name in run_avg:

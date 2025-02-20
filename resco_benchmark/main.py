@@ -2,7 +2,7 @@ import pathlib
 import os
 import multiprocessing as mp
 
-
+from datetime import datetime
 from multi_signal import MultiSignal
 import argparse
 from resco_benchmark.config.agent_config import agent_configs
@@ -13,14 +13,14 @@ from resco_benchmark.config.mdp_config import mdp_configs
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--agent", type=str, default='STOCHASTIC',
-                    choices=['STOCHASTIC', 'MAXWAVE', 'MAXPRESSURE', 'IDQN', 'IDQNCO2Muidltiple', 'IPPO', 'MPLight', 'MPLightCO2', 'MPLightCO2Multiple', 'MA2C', 'FMA2C',
+                    choices=['STOCHASTIC', 'MAXWAVE', 'MAXPRESSURE', 'IDQN', 'IDQNCO2', 'IDQNCO2Multiple', 'IPPO', 'MPLight', 'MPLightCO2', 'MPLightCO2Multiple', 'MA2C', 'FMA2C',
                              'MPLightFULL', 'FMA2CFull', 'FMA2CVAL'])
     ap.add_argument("--trials", type=int, default=1)
     ap.add_argument("--eps", type=int, default=100)
     ap.add_argument("--procs", type=int, default=1)
     ap.add_argument("--map", type=str, default='ingolstadt1',
                     choices=['grid4x4', 'arterial4x4', 'ingolstadt1', 'ingolstadt7', 'ingolstadt21',
-                             'cologne1', 'cologne3', 'cologne8',
+                             'cologne1', 'cologne3', 'cologne8', '2way_single', '1way_single'
                              ])
     ap.add_argument("--pwd", type=str, default=os.path.dirname(__file__))
     ap.add_argument("--log_dir", type=str, default=os.path.join(os.path.dirname(os.getcwd()), 'results' + os.sep))
@@ -103,6 +103,8 @@ def run_trial(args, trial):
         obs_act[key] = [env.obs_shape[key], len(env.phases[key]) if key in env.phases else None]
     agent = alg(agt_config, obs_act, args.map, trial)
 
+    start_time = datetime.now()
+    print(f'started: {start_time.strftime("%H:%M:%S")}')
     for _ in range(args.eps):
         obs = env.reset()
         done = False
@@ -113,7 +115,9 @@ def run_trial(args, trial):
         if hasattr(agent, 'save'):
             agent.save()
     env.close()
-
+    end_time = datetime.now()
+    duration = (end_time - start_time).total_seconds() / 60
+    print(f'finished: {end_time.strftime("%H:%M:%S")}, total duration: {duration:.1f} min')
 
 if __name__ == '__main__':
     main()

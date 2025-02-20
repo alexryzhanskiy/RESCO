@@ -124,7 +124,7 @@ agent_configs = {
         'TARGET_UPDATE': 500,
         'demand_shape': 1
     },
-    'MPLightCO2Muidltiple': {
+    'MPLightCO2Multiple': {
         'agent': MPLight,
         'state': states.mplight_Co2Multiple,
         'reward': rewards.pressure_CO2Multiple,
@@ -139,21 +139,36 @@ agent_configs = {
         #'steps': 1000,          # Fewer training steps for faster testing
         #'episodes': 10          # Reduced episodes
     },
-    'IDQNCO2Muidltiple': {
+    'IDQNCO2Multiple': {
         'agent': IDQN,
         'state': states.idqn_Co2Multiple,
-        'reward': rewards.pressure_CO2MultipleNorm,
+        'reward': rewards.pressureCO2,
         'max_distance': 200,
         'BATCH_SIZE': 32,       # Reduced batch size for quicker training
         'GAMMA': 0.99,          # Keep gamma unchanged
         'EPS_START': 1.0,       # Keep epsilon start
-        'EPS_END': 0.1,         # Increase final epsilon for less exploration during testing
+        'EPS_END': 0.0,         # Increase final epsilon for less exploration during testing
         'EPS_DECAY': 220,        # Faster decay for testing
         'TARGET_UPDATE': 500,   # Update target network more frequently
         'demand_shape': 1,
         #'steps': 1000,          # Fewer training steps for faster testing
         #'episodes': 10          # Reduced episodes
-    },    
+    }, 
+    'IDQNCO2': {
+        'agent': IDQN,
+        'state': states.drq_norm,
+        'reward': rewards.pressureCO2,
+        'max_distance': 200,
+        'BATCH_SIZE': 32,       # Reduced batch size for quicker training
+        'GAMMA': 0.99,          # Keep gamma unchanged
+        'EPS_START': 1.0,       # Keep epsilon start
+        'EPS_END': 0.0,         # Increase final epsilon for less exploration during testing
+        'EPS_DECAY': 220,        # Faster decay for testing
+        'TARGET_UPDATE': 500,   # Update target network more frequently
+        'demand_shape': 1,
+        #'steps': 1000,          # Fewer training steps for faster testing
+        #'episodes': 10          # Reduced episodes
+    },   
     'FMA2C': {
         'agent': FMA2C,
         'state': states.fma2c,

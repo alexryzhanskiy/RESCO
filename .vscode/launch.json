@@ -34,9 +34,9 @@
             "cwd": "${workspaceFolder}/resco_benchmark",
             "console": "integratedTerminal",
             "args": [
-                "--agent", "IDQNCO2Muidltiple",
-                "--eps", "20",
-                "--map", "grid4x4",
+                "--agent", "IDQNCO2",
+                "--eps", "100",
+                "--map", "1way_single",
                 "--procs", "1",
                 "--libsumo", "True"
             ]

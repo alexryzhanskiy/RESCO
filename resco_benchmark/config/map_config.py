@@ -32,6 +32,28 @@ map_configs = {
         'end_time': 3600,
         'warmup': 0
     },
+    '2way_single':{
+        'lights': [],
+        'net': 'environments/2way_single/single-intersection.net.xml',        
+        'route': 'environments/2way_single/2way_single/single-intersection-gen',
+        'step_length': 5,
+        'yellow_length': 2,
+        'step_ratio': 1,
+        'start_time': 0,
+        'end_time': 3600,
+        'warmup': 0
+    },
+     '1way_single':{
+        'lights': [],
+        'net': 'environments/1way_single/single-intersection.net.xml',        
+        'route': 'environments/1way_single/1way_single/single-intersection-gen',
+        'step_length': 5,
+        'yellow_length': 2,
+        'step_ratio': 1,
+        'start_time': 0,
+        'end_time': 3600,
+        'warmup': 0
+    },
     'ingolstadt1': {
         'lights': [],
         'net': 'environments/ingolstadt1/ingolstadt1.sumocfg',
