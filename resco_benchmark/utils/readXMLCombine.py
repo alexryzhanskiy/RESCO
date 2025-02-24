@@ -27,8 +27,9 @@ for metric in metrics:
 
         files = glob.glob(os.path.join(log_dir, name, 'tripinfo_*.xml'))
         count = len(files)
+        begins_from = 1
 
-        for i in range(1, count + 1):
+        for i in range(begins_from, count + 1):
             trip_file_name = log_dir+name + os.sep + 'tripinfo_'+str(i)+'.xml'
             if not os.path.exists(trip_file_name):
                 print('No '+trip_file_name)
@@ -129,6 +130,7 @@ for metric in metrics:
     plt.title(f'Comparison of {metricName}')
     for i, res in enumerate(alg_res):
         if 'yerr' not in alg_name[i]:
-            plt.plot(res, label=alg_name[i])
+            x = np.arange(begins_from, begins_from + len(res))
+            plt.plot(x, res, label=alg_name[i])
     plt.legend()
     plt.show()

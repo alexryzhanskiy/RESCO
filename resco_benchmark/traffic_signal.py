@@ -31,7 +31,7 @@ class Signal:
         self.yellow_time = yellow_length
         self.next_phase = 0
 
-        links = self.sumo.trafficlight.getControlledLinks(self.id)
+        self.links = self.sumo.trafficlight.getControlledLinks(self.id)
         lanes = []
 
         #for i, link in enumerate(links):

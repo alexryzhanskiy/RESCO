@@ -82,15 +82,15 @@ agent_configs = {
     },
     'IDQN': {
         'agent': IDQN,
-        'state': states.drq_norm,
+        'state': states.drq_norm1,
         'reward': rewards.wait_norm,
         'max_distance': 200,
-        'BATCH_SIZE': 32,
+        'BATCH_SIZE': 64,
         'GAMMA': 0.99,
         'EPS_START': 1.0,
         'EPS_END': 0.0,
-        'EPS_DECAY': 220,
-        'TARGET_UPDATE': 500
+        'EPS_DECAY': 640,
+        'TARGET_UPDATE': 2000
     },
     'IPPO': {
         'agent': IPPO,
@@ -142,29 +142,29 @@ agent_configs = {
     'IDQNCO2Multiple': {
         'agent': IDQN,
         'state': states.idqn_Co2Multiple,
-        'reward': rewards.pressureCO2,
+        'reward': rewards.pressure_CO2MultipleNorm,
         'max_distance': 200,
-        'BATCH_SIZE': 32,       # Reduced batch size for quicker training
+        'BATCH_SIZE': 64,       # Reduced batch size for quicker training
         'GAMMA': 0.99,          # Keep gamma unchanged
         'EPS_START': 1.0,       # Keep epsilon start
         'EPS_END': 0.0,         # Increase final epsilon for less exploration during testing
-        'EPS_DECAY': 220,        # Faster decay for testing
-        'TARGET_UPDATE': 500,   # Update target network more frequently
+        'EPS_DECAY': 640,        # Faster decay for testing
+        'TARGET_UPDATE': 2000,   # Update target network more frequently
         'demand_shape': 1,
         #'steps': 1000,          # Fewer training steps for faster testing
         #'episodes': 10          # Reduced episodes
     }, 
     'IDQNCO2': {
         'agent': IDQN,
-        'state': states.drq_norm,
+        'state': states.drq_norm1,
         'reward': rewards.pressureCO2,
         'max_distance': 200,
-        'BATCH_SIZE': 32,       # Reduced batch size for quicker training
+        'BATCH_SIZE': 64,       # Reduced batch size for quicker training
         'GAMMA': 0.99,          # Keep gamma unchanged
         'EPS_START': 1.0,       # Keep epsilon start
         'EPS_END': 0.0,         # Increase final epsilon for less exploration during testing
-        'EPS_DECAY': 220,        # Faster decay for testing
-        'TARGET_UPDATE': 500,   # Update target network more frequently
+        'EPS_DECAY': 640,        # Faster decay for testing
+        'TARGET_UPDATE': 2000,   # Update target network more frequently
         'demand_shape': 1,
         #'steps': 1000,          # Fewer training steps for faster testing
         #'episodes': 10          # Reduced episodes

@@ -52,41 +52,50 @@ def pressureCO2(signals):
             if dwn_signal in signals[signal_id].signals:
                 total_co2 -= signals[signal_id].signals[dwn_signal].full_observation[lane]['total_co2']
 
-        rewards[signal_id] = round(-total_co2/10e5, 1) #normalize CO2 emissions
+        #rewards[signal_id] = round(-total_co2/10e4, 1) #normalize CO2 emissions
+        num_lanes = len(signals[signal_id].lanes)
+        rvalue = -total_co2/num_lanes/10e3
+        rewards[signal_id] =  rvalue 
+        if rewards[signal_id] > 10 or rewards[signal_id] < -10:
+            print(f"CO2 reward is out of range: {rewards[signal_id]:.2f}")
     return rewards
 
 def pressure_CO2MultipleNorm(signals):
     rewards = dict()
     for signal_id in signals:
-        total_wait = 0
-        queue_length = 0        
         total_co2 = 0
+        queue_length = 0
+        total_wait = 0         
         total_awg_speed = 0
+        
         for lane in signals[signal_id].lanes:
             total_wait += signals[signal_id].full_observation[lane]['total_wait']
-            queue_length += signals[signal_id].full_observation[lane]['queue']            
-            total_co2 += signals[signal_id].full_observation[lane]['total_co2']
+            queue_length += signals[signal_id].full_observation[lane]['queue']    
             total_awg_speed += signals[signal_id].full_observation[lane]['awg_speed']
+            total_co2 += signals[signal_id].full_observation[lane]['total_co2']
 
-        # for lane in signals[signal_id].outbound_lanes:
-        #     dwn_signal = signals[signal_id].out_lane_to_signalid[lane]
-        #     if dwn_signal in signals[signal_id].signals:
-        #         total_co2 -= signals[signal_id].signals[dwn_signal].full_observation[lane]['total_co2']
-        #         total_wait -= signals[signal_id].signals[dwn_signal].full_observation[lane]['total_wait']
-        #         queue_length -= signals[signal_id].signals[dwn_signal].full_observation[lane]['queue']
-        #         total_awg_speed -= signals[signal_id].signals[dwn_signal].full_observation[lane]['awg_speed']
+        for lane in signals[signal_id].outbound_lanes:
+            dwn_signal = signals[signal_id].out_lane_to_signalid[lane]
+            if dwn_signal in signals[signal_id].signals:
+                total_co2 -= signals[signal_id].signals[dwn_signal].full_observation[lane]['total_co2']
+                total_wait -= signals[signal_id].signals[dwn_signal].full_observation[lane]['total_wait']
+                queue_length -= signals[signal_id].signals[dwn_signal].full_observation[lane]['queue']
+                total_awg_speed -= signals[signal_id].signals[dwn_signal].full_observation[lane]['awg_speed']
 
-        k = 10
-        kw = 224
-        ks = 100
-        total_co2 = total_co2/10e3 # Normalize CO2 emissions
-        reward = (
-                -0.4 * queue_length/k  # Penalize queue length
-                -0.1 * total_wait/kw    # Penalize waiting time
-                -0.4 * total_co2/k     # Penalize CO2 emissions with normalization
-                +0.1 * total_awg_speed/ks  # Reward higher average speed
-            )
-        rewards[signal_id] = np.clip(reward, -5, 5).astype(np.float32)
+        #rewards[signal_id] = round(-total_co2/10e4, 1) #normalize CO2 emissions
+        num_lanes = len(signals[signal_id].lanes)
+        rvalue = (
+            -1 * total_co2/num_lanes/10e3
+            -0.1 * queue_length/num_lanes/10e2
+            -0.1 * total_wait/num_lanes/10e2
+            +0.1 * total_awg_speed/num_lanes/10e2
+        )
+
+        rewards[signal_id] =  rvalue 
+
+        if rewards[signal_id] > 10 or rewards[signal_id] < -10:
+            print(f"CO2 reward is out of range: {rewards[signal_id]:.2f}")
+
     return rewards
 
 def pressure_CO2Multiple(signals):

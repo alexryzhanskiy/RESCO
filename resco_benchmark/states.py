@@ -37,12 +37,14 @@ def drq_norm(signals):
         signal = signals[signal_id]
         obs = []
         act_index = signal.phase
+
         for i, lane in enumerate(signal.lanes):
             lane_obs = []
             if i == act_index:
                 lane_obs.append(1)
             else:
                 lane_obs.append(0)
+           
 
             lane_obs.append(signal.full_observation[lane]['approach'] / 28)
             lane_obs.append(signal.full_observation[lane]['total_wait'] / 28)
@@ -58,6 +60,70 @@ def drq_norm(signals):
         observations[signal_id] = np.expand_dims(np.asarray(obs), axis=0)
     return observations
 
+def drq_norm1(signals):
+    observations = dict()
+    for signal_id in signals:
+        signal = signals[signal_id]
+        obs = []
+
+        #pass the current lane state based on signal phase
+        lane_colors = get_inbound_lane_colors(signal)
+
+        for i, lane in enumerate(signal.lanes):
+            lane_obs = []
+            
+            lane_obs.append(0) #added static value to reduce influence in convolutional operation
+
+            lane_obs.append(signal.full_observation[lane]['approach'] / 28)
+            lane_obs.append(signal.full_observation[lane]['total_wait'] / 28)
+            lane_obs.append(signal.full_observation[lane]['queue'] / 28)
+            lane_obs.append(lane_colors[lane])
+            total_speed = 0
+            vehicles = signal.full_observation[lane]['vehicles']
+            for vehicle in vehicles:
+                total_speed += (vehicle['speed'] / 20 / 28)
+            lane_obs.append(total_speed)
+
+            lane_obs.append(0)
+            obs.append(lane_obs)
+        observations[signal_id] = np.expand_dims(np.asarray(obs), axis=0)
+    
+    return observations
+
+def get_inbound_lane_colors(signal):
+    """
+    Returns a dict mapping each inbound lane -> color code
+    using SUMO's current RYG (red-yellow-green) state.
+    """
+   # Retrieve the current red-yellow-green state string 
+    ryg_state_str = signal.phases[signal.phase].state
+    # Controlled links are in the same order as characters in ryg_state
+    controlled_links = signal.links
+
+    # Convert the string to a NumPy array of single-character entries
+    ryg_array = np.fromiter(ryg_state_str, dtype='U1')  # shape (N,)
+
+    # Define a mapping from character to integer color code
+    # Adjust as needed (e.g. 0=red, 1=yellow, 2=green)
+    color_map = {
+        'r': -1, 'R': -1,
+        'y': 0, 'Y': 0,
+        'g': 1, 'G': 1,
+        # 's': 3, 'S': 3, etc. if you have special states
+    }
+
+    # Vectorized conversion: each char → integer code (default to 0 if unknown)
+    color_codes = np.array([color_map.get(c, 0) for c in ryg_array])
+
+    lane_colors = {}
+    # Loop over each controlled link index, which lines up with color_codes
+    for i, link_list in enumerate(controlled_links):
+        color_val = color_codes[i]
+        # Each link_list can have multiple (inbound, outbound, via) tuples
+        for (inbound_lane, outbound_lane, via_lane) in link_list:
+            lane_colors[inbound_lane] = color_val
+
+    return lane_colors
 
 def mplight(signals):
     observations = dict()
@@ -157,28 +223,27 @@ def idqn_Co2Multiple(signals):
     for signal_id in signals:
         signal = signals[signal_id]
         obs = []
-        
+
+        lane_colors = get_inbound_lane_colors(signal)
         for i, lane in enumerate(signal.lanes):
             lane_obs = []
-            if i == signal.phase:
-                lane_obs.append(1)
-            else:
-                lane_obs.append(0)
+
+            lane_obs.append(0) #added static value to reduce influence in convolutional operation
 
             lane_obs.append(signal.full_observation[lane]['approach'] / 28)
             lane_obs.append(signal.full_observation[lane]['total_wait'] / 28)
-            lane_obs.append(signal.full_observation[lane]['queue'] / 28)
- 
-            lane_obs.append(signal.full_observation[lane]['total_co2'] / 10e3)
-            lane_obs.append(signal.full_observation[lane]['awg_speed'] / 50)
-            #lane_obs.append(signal.full_observation[lane]['alpha'])
-            #lane_obs.append(signal.full_observation[lane]['total_mass'] / 1000)
+            lane_obs.append(signal.full_observation[lane]['queue'] / 28) 
+            lane_obs.append(signal.full_observation[lane]['total_co2'] / 10e3)            
 
-            # total_speed = 0
-            # vehicles = signal.full_observation[lane]['vehicles']
-            # for vehicle in vehicles:
-            #     total_speed += (vehicle['speed'] / 20 / 28)
-            # lane_obs.append(total_speed)
+            lane_obs.append(lane_colors[lane])
+
+            total_speed = 0
+            vehicles = signal.full_observation[lane]['vehicles']
+            for vehicle in vehicles:
+                total_speed += (vehicle['speed'] / 20 / 28)
+            lane_obs.append(total_speed)
+            
+            lane_obs.append(0) 
 
             obs.append(lane_obs)
         obs_shaped = np.expand_dims(np.asarray(obs), axis=0)
