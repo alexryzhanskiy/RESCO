@@ -9,7 +9,7 @@
 
 signal_configs = {
     '2way_single': {
-        # 'phase_pairs': [[1, 7], [4, 10]], 
+        'phase_pairs': [[1, 7], [4, 10]], 
         'valid_acts': None,
         't': {
 			'lane_sets': {
@@ -31,20 +31,21 @@ signal_configs = {
 	},
     '1way_single': {
         'valid_acts': None,
+        'phase_pairs': [[1, 7], [4, 10]],
         't': {
             'lane_sets': {
-                'S-W': [],
-                'S-S': [],
-                'S-E': ['s_t_0' ],
-                'W-N': [],
-                'W-W': [],
-                'W-S': [ 'w_t_0' ],
-                'N-E': [],
-                'N-N': [],
-                'N-W': [ 'n_t_0' ],
-                'E-S': [],
-                'E-E': [],
-                'E-N': [ 'e_t_0' ]
+                'S-W': [],			#0
+                'S-S': [],			#1
+                'S-E': ['s_t_0' ],	#2
+                'W-N': [],			#3
+                'W-W': [],			#4
+                'W-S': [ 'w_t_0' ],	#5
+                'N-E': [],			#6
+                'N-N': [],			#7
+                'N-W': [ 'n_t_0' ],	#8
+                'E-S': [],			#9
+                'E-E': [],			#10
+                'E-N': [ 'e_t_0' ]	#11
             },
             'downstream': {'N': None, 'S': None, 'W': None, 'E': None}
         }

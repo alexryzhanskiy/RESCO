@@ -8,7 +8,7 @@
     <input>
         <sumocfg-file value="single-intersection.sumocfg"/>
         <additional-files value=""/>
-        <route-files value="single-intersection-gen.rou.xml"/>
+        <route-files value="single-intersection-gen_co2.rou.xml"/>
         <sumo-net-file value="single-intersection.net.xml"/>
     </input>
 
@@ -16,7 +16,7 @@
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
+        <lefthand value="0"/>   
     </processing>
 
     <junctions>

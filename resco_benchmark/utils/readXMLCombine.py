@@ -10,6 +10,7 @@ import glob
 
 log_dir = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'results' + os.sep)
 #log_dir = os.path.join(os.path.dirname(os.getcwd()), 'results' + os.sep)
+#log_dir = r"C:\Clinical\results\results_007_1way_single\\"
 print(f"Log dir: {log_dir}, cwd:'{os.getcwd()}'")
 env_base = '..'+os.sep+'environments'+os.sep
 names = [folder for folder in next(os.walk(log_dir))[1]]
@@ -134,3 +135,5 @@ for metric in metrics:
             plt.plot(x, res, label=alg_name[i])
     plt.legend()
     plt.show()
+
+   

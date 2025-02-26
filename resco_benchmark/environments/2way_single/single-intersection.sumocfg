@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="single-intersection.net.xml"/>
-        <route-files value="single-intersection-gen.rou-big.xml"/>
+        <route-files value="single-intersection-gen1_co2.rou.xml"/>
     </input>
 
 	<emissions>

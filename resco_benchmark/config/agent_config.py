@@ -90,7 +90,7 @@ agent_configs = {
         'EPS_START': 1.0,
         'EPS_END': 0.0,
         'EPS_DECAY': 640,
-        'TARGET_UPDATE': 2000
+        'TARGET_UPDATE': 500
     },
     'IPPO': {
         'agent': IPPO,
@@ -111,7 +111,7 @@ agent_configs = {
         'TARGET_UPDATE': 500,
         'demand_shape': 1
     },
-    'MPLightCO2': {
+    'gg': {
         'agent': MPLight,
         'state': states.mplightCO2,
         'reward': rewards.pressureCO2,
@@ -149,7 +149,7 @@ agent_configs = {
         'EPS_START': 1.0,       # Keep epsilon start
         'EPS_END': 0.0,         # Increase final epsilon for less exploration during testing
         'EPS_DECAY': 640,        # Faster decay for testing
-        'TARGET_UPDATE': 2000,   # Update target network more frequently
+        'TARGET_UPDATE': 500,   # Update target network more frequently
         'demand_shape': 1,
         #'steps': 1000,          # Fewer training steps for faster testing
         #'episodes': 10          # Reduced episodes
@@ -164,7 +164,7 @@ agent_configs = {
         'EPS_START': 1.0,       # Keep epsilon start
         'EPS_END': 0.0,         # Increase final epsilon for less exploration during testing
         'EPS_DECAY': 640,        # Faster decay for testing
-        'TARGET_UPDATE': 2000,   # Update target network more frequently
+        'TARGET_UPDATE': 500,   # Update target network more frequently
         'demand_shape': 1,
         #'steps': 1000,          # Fewer training steps for faster testing
         #'episodes': 10          # Reduced episodes

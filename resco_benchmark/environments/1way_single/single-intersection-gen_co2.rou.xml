@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-09-23 11:26:31 by Eclipse SUMO netedit Version 1.20.0
+-->
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vType id="vType_highCO2" accel="1.0" decel="4.5" sigma="0.5" length="5.0" minGap="2.5" 
+        maxSpeed="25" emissionClass="HDV_12_8" color="1,0,0"/>
+    <!-- Routes -->
+    <route id="route_en" edges="e_t t_n"/>
+    <route id="route_es" edges="e_t t_s"/>
+    <route id="route_ew" edges="e_t t_w"/>
+    <route id="route_ne" edges="n_t t_e"/>
+    <route id="route_ns" edges="n_t t_s"/>
+    <route id="route_nw" edges="n_t t_w"/>
+    <route id="route_se" edges="s_t t_e"/>
+    <route id="route_sn" edges="s_t t_n"/>
+    <route id="route_sw" edges="s_t t_w"/>
+    <route id="route_we" edges="w_t t_e"/>
+    <route id="route_wn" edges="w_t t_n"/>
+    <route id="route_ws" edges="w_t t_s"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="flow_en_0" begin="0.00" departLane="best" departPos="base" color="blue" route="route_en" end="150000.00" vehsPerHour="60"/>
+    <flow id="flow_es_0" begin="0.00" departLane="best" departPos="base" color="blue" route="route_es" end="150000.00" vehsPerHour="60"/>
+    <flow id="flow_ew_0" begin="0.00" departLane="best" departPos="base" color="blue" route="route_ew" end="150000.00" vehsPerHour="200"/>
+
+    <flow id="flow_ne_0" begin="0.00" departLane="best" departPos="base" color="white" route="route_ne" end="150000.00" vehsPerHour="60" type="vType_highCO2"/>
+    <flow id="flow_ns_0" begin="0.00" departLane="best" departPos="base" color="cyan" route="route_ns" end="150000.00" vehsPerHour="200" type="vType_highCO2"/>
+    <flow id="flow_nw_0" begin="0.00" departLane="best" departPos="base" color="cyan" route="route_nw" end="150000.00" vehsPerHour="60" type="vType_highCO2"/>
+
+    <flow id="flow_se_0" begin="0.00" departLane="best" departPos="base" color="green" route="route_se" end="150000.00" vehsPerHour="60"/>
+    <flow id="flow_sn_0" begin="0.00" departLane="best" departPos="base" color="green" route="route_sn" end="150000.00" vehsPerHour="200"/>
+    <flow id="flow_sw_0" begin="0.00" departLane="best" departPos="base" color="green" route="route_sw" end="150000.00" vehsPerHour="60"/>
+
+    <flow id="flow_we_0" begin="0.00" departLane="best" departPos="base" route="route_we" end="150000.00" vehsPerHour="200"/>
+    <flow id="flow_wn_0" begin="0.00" departLane="best" departPos="base" route="route_wn" end="150000.00" vehsPerHour="60"/>
+    <flow id="flow_ws_0" begin="0.00" departLane="best" departPos="base" route="route_ws" end="150000.00" vehsPerHour="60"/>
+     
+    
+</routes>
