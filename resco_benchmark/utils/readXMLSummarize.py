@@ -7,7 +7,7 @@ import glob
 # Define the metrics in one place
 METRICS = {
     'Duration': 'Avg Duration',
-    'Queue Length': 'Avg Queue Length',
+    'Waiting Count': 'Avg Waiting Count',
     'CO2 Emissions': 'Total CO2 Emissions',
     'Waiting Time': 'Avg Waiting Time'
     
@@ -25,7 +25,7 @@ def parse_trip_info(xml_file):
             'Duration': float(trip.get('duration')),
             'Waiting Time': float(trip.get('waitingTime')),
             'CO2 Emissions': sum(float(em.get('CO2_abs')) for em in trip.findall('emissions')),
-            'Queue Length': int(trip.get('waitingCount', 0))
+            'Waiting Count': int(trip.get('waitingCount', 0))
         })
     
     return data
@@ -64,4 +64,10 @@ log_dir = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'results' 
 df_results = generate_results_table(log_dir, last_n=1)
 
 print(df_results)
-df_results.to_excel(log_dir + "results.xlsx", index=False)
+df_results.to_excel(log_dir + "results_finished.xlsx", index=False)
+
+
+df_results = generate_results_table(log_dir, last_n=-1)
+
+print(df_results)
+df_results.to_excel(log_dir + "results_started.xlsx", index=False)
